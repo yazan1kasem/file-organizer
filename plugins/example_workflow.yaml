@@ -1,0 +1,44 @@
+name: Beispiel-Workflow
+description: Ein einfacher Workflow zur Demonstration des YAML-Workflow-Systems
+version: 0.1.0
+author: Manus
+
+variables:
+  source_dir: ""
+  target_dir: ""
+  file_types: [".txt", ".md", ".pdf"]
+
+steps:
+  - name: Verzeichnisse prüfen
+    type: condition
+    condition: os.path.exists($source_dir) and os.path.exists($target_dir)
+    if_steps:
+      - name: Verzeichnisse erstellen
+        type: file_operation
+        operation: create_dir
+        path: $target_dir + "/organisiert"
+    else_steps:
+      - name: Fehler ausgeben
+        type: plugin_call
+        plugin: logger_plugin
+        method: log_error
+        args: ["Quell- oder Zielverzeichnis existiert nicht"]
+
+  - name: Dateien organisieren
+    type: loop
+    loop_type: for_each
+    items: os.listdir($source_dir)
+    item_var: filename
+    steps:
+      - name: Datei prüfen
+        type: condition
+        condition: any(filename.endswith(ext) for ext in $file_types)
+        if_steps:
+          - name: Datei kopieren
+            type: file_operation
+            operation: copy
+            source: os.path.join($source_dir, $filename)
+            target: os.path.join($target_dir, "organisiert", $filename)
+
+output:
+  - processed_files

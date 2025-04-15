@@ -1,0 +1,21 @@
+# Kernabhängigkeiten
+PyQt6==6.5.0         # UI-Framework
+pyyaml==6.0          # YAML-Verarbeitung für Konfiguration und Workflows
+pillow==9.5.0        # Bildverarbeitung
+python-magic==0.4.27 # Dateityperkennung (für Linux/macOS)
+python-magic-bin==0.4.14 # Dateityperkennung (für Windows)
+chardet==5.1.0       # Zeichensatzerkennung
+numpy==1.24.3        # Numerische Berechnungen
+
+# Optionale Abhängigkeiten für erweiterte Funktionen
+pandas==2.0.1        # Datenanalyse für Tabellendateien
+openpyxl==3.1.2      # Excel-Dateiverarbeitung
+python-docx==0.8.11  # Word-Dateiverarbeitung
+PyPDF2==3.0.1        # PDF-Verarbeitung
+mutagen==1.46.0      # Audio-Metadaten
+moviepy==1.0.3       # Video-Verarbeitung
+
+# Entwicklungsabhängigkeiten
+pytest==7.3.1        # Testing-Framework
+black==23.3.0        # Code-Formatierung
+flake8==6.0.0        # Linting
